@@ -11,13 +11,52 @@ document.querySelector('.search-icon').addEventListener('click', () => {
 
 async function checkWeather() {
     const response = await fetch(api);
-    var data = await response.json();
-    if (!response.ok) {
+    if (response.status == 404) {
+        document.querySelector('.error').style.display = 'block';
+        document.querySelector('.weather').style.display = 'none';
         return;
     }
+
+    document.querySelector('.error').style.display = 'none';
+    document.querySelector('.weather').style.display = 'block';
+    var data = await response.json();
     document.querySelector('.city').innerHTML = data.name;
     document.querySelector('.temp').innerHTML = data.main.temp.toFixed(0) + '°C';
-
+    document.querySelector('.humidity h3').innerHTML = data.main.humidity + '%';
+    document.querySelector('.wind-speed h3').innerHTML = data.wind.speed + ' km/h';
+    document.querySelector('.humidity p').innerHTML = 'Humidity';
+    document.querySelector('.wind-speed p').innerHTML = 'Wind Speed';
+    document.querySelector('.humidity img').style = 'display: block';
+    document.querySelector('.wind-speed img').style = 'display: block';
+    let mainImg = document.querySelector('.display-weather img');
+    mainImg.style = 'display: block';
+    if (data.weather[0].main == 'Clouds') {
+        mainImg.src = 'images/clouds.png';
+    }
+    else if (data.weather[0].main == 'Clear') {
+        mainImg.src = 'images/clear.png';
+    }
+    else if (data.weather[0].main == 'Drizzle') {
+        mainImg.src = 'images/drizzle.png';
+    }
+    else if (data.weather[0].main == 'Humidity') {
+        mainImg.src = 'images/humidity.png';
+    }
+    else if (data.weather[0].main == 'Mist') {
+        mainImg.src = 'images/mist.png';
+    }
+    else if (data.weather[0].main == 'Rain') {
+        mainImg.src = 'images/rain.png';
+    }
+    else if (data.weather[0].main == 'Snow') {
+        mainImg.src = '/images/snow.png';
+    }
+    else if (data.weather[0].main == 'Wind') {
+        mainImg.src = 'images/wind.png';
+    }
+    else {
+        mainImg.src = 'images/clouds.png';
+    }
     console.log(data);
     
 }
