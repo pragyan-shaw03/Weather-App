@@ -1,11 +1,23 @@
 let apiKey = '08a1e62f81459e1d73374c7aa2b35bc9';
-let city = 'bangalore';
-let api = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
+let search = document.querySelector('input');
+let city = '';
+let api = '';
+
+document.querySelector('.search-icon').addEventListener('click', () => {
+    city = search.value;
+    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=08a1e62f81459e1d73374c7aa2b35bc9`;
+    checkWeather();
+});
 
 async function checkWeather() {
-    let response = await fetch(api);
-    let data = await response.json();
+    const response = await fetch(api);
+    var data = await response.json();
+    if (!response.ok) {
+        return;
+    }
+    document.querySelector('.city').innerHTML = data.name;
+    document.querySelector('.temp').innerHTML = data.main.temp.toFixed(0) + '°C';
 
     console.log(data);
+    
 }
-checkWeather();
