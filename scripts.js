@@ -26,8 +26,6 @@ async function checkWeather() {
     document.querySelector('.wind-speed h3').innerHTML = data.wind.speed + ' km/h';
     document.querySelector('.humidity p').innerHTML = 'Humidity';
     document.querySelector('.wind-speed p').innerHTML = 'Wind Speed';
-    document.querySelector('.humidity img').style = 'display: block';
-    document.querySelector('.wind-speed img').style = 'display: block';
     let mainImg = document.querySelector('.display-weather img');
     mainImg.style = 'display: block';
     if (data.weather[0].main == 'Clouds') {
