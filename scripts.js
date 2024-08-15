@@ -2,12 +2,22 @@ let apiKey = '08a1e62f81459e1d73374c7aa2b35bc9';
 let search = document.querySelector('input');
 let city = '';
 let api = '';
+const searchIcon = document.querySelector('.search-icon');
 
-document.querySelector('.search-icon').addEventListener('click', () => {
+searchIcon.addEventListener('click', searched);
+
+search.addEventListener('keydown', function(event) {
+    if (event.key == 'Enter') {
+        searched();
+    }
+});
+
+function searched() {
     city = search.value;
     api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=08a1e62f81459e1d73374c7aa2b35bc9`;
     checkWeather();
-});
+    search.value = '';
+}
 
 async function checkWeather() {
     const response = await fetch(api);
